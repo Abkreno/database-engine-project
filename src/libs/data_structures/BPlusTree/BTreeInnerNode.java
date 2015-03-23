@@ -12,14 +12,8 @@ package libs.data_structures.BPlusTree;
 
 import java.util.ArrayList;
 
-/**
- * @author mohamed
- */
 class BTreeInnerNode<TKey extends Comparable<TKey>> extends BTreeNode<TKey> {
 	protected final static int INNERORDER = 4;
-	/**
-	 * @uml.property name="children"
-	 */
 	protected Object[] children;
 
 	public BTreeInnerNode() {

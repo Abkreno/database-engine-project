@@ -19,7 +19,6 @@ public class LinearHashTableTest {
 	@Test
 	public void testPutOneGetOne() {
 		LinearHashTable table = new LinearHashTable(0.75f, 2);
-
 		int key = 5;
 		String value = "five";
 		table.put(key, value);
