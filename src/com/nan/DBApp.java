@@ -22,7 +22,7 @@ public class DBApp {
 
 	public void createMultiDimIndex(String strTableName,
 			Hashtable<String, String> htblColNames) throws DBAppException {
-
+		
 	}
 
 	public void insertIntoTable(String strTableName,
