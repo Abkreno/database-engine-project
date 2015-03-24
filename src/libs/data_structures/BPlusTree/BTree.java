@@ -14,9 +14,12 @@ import java.util.ArrayList;
 
 public class BTree<TKey extends Comparable<TKey>, TValue> {
 	private BTreeNode<TKey> root;
-	private String tableName;
+	protected static int INNERORDER; // Number of keys in a non-leaf bucket
+	protected static int LEAFORDER; // Number of values in a leaf bucket
 
-	public BTree() {
+	public BTree(int innerOrder, int leafOrder) {
+		INNERORDER = innerOrder;
+		LEAFORDER = leafOrder;
 		this.root = new BTreeLeafNode<TKey, TValue>();
 	}
 

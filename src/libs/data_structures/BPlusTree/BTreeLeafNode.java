@@ -10,22 +10,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package libs.data_structures.BPlusTree;
 
-import java.util.ArrayList;
-
 class BTreeLeafNode<TKey extends Comparable<TKey>, TValue> extends
 		BTreeNode<TKey> {
-	protected final static int LEAFORDER = 4;
 
 	private Object[] values;
-	private ArrayList<Boolean> filters;
 
 	public BTreeLeafNode() {
-		this.filters = new ArrayList<Boolean>();
-		this.keys = new Object[LEAFORDER + 1];
-		this.values = new Object[LEAFORDER + 1];
+		this.keys = new Object[BTree.LEAFORDER + 1];
+		this.values = new Object[BTree.LEAFORDER + 1];
 	}
 
-	public BTreeLeafNode(BTreeLeafNode smallest) {
+	public BTreeLeafNode(BTreeLeafNode<TKey, TValue> smallest) {
 		this.keys = smallest.keys;
 		this.values = smallest.values;
 	}

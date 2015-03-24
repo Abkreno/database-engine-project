@@ -13,12 +13,11 @@ package libs.data_structures.BPlusTree;
 import java.util.ArrayList;
 
 class BTreeInnerNode<TKey extends Comparable<TKey>> extends BTreeNode<TKey> {
-	protected final static int INNERORDER = 4;
 	protected Object[] children;
 
 	public BTreeInnerNode() {
-		this.keys = new Object[INNERORDER + 1];
-		this.children = new Object[INNERORDER + 2];
+		this.keys = new Object[BTree.INNERORDER + 1];
+		this.children = new Object[BTree.INNERORDER + 2];
 	}
 
 	@SuppressWarnings("unchecked")
