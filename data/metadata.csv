@@ -1,0 +1,7 @@
+Employee, ID, java.lang.Integer, True, True, null
+Employee, Name, java.lang.String, False, False, null
+Employee, Dept, java.lang.String, False, False, Department.ID
+Employee, Start_Date, java.util.Date, False, False, null
+Department, ID, java.lang.Integer, True, True, null
+Department, Name, java.lang.String, False, False, null
+Department, Location, java.lang.String, False, False, null

@@ -20,16 +20,16 @@ public class FileManager {
 		BufferedReader bf = new BufferedReader(new FileReader(schemaFile));
 		String line;
 		while ((line = bf.readLine()) != null) {
-			String[] data = line.split(",");
+			String[] data = line.split(", ");
 			String tableName = data[0];
 			if (!schema.containsKey(tableName))
 				schema.put(tableName, new ArrayList<Column>());
 			ArrayList<Column> currTableColumns = schema.get(tableName);
 			Column currColumn = new Column(data[1], data[2],
-					data[3].equals("true"), data[4].equals("true"));
+					data[3].equals("True"), data[4].equals("True"),data[5]);
 			currTableColumns.add(currColumn);
 		}
-		return null;
+		return schema;
 	}
 
 	public static Table readTable(String tableName) {
