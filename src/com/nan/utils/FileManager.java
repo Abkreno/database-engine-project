@@ -29,6 +29,7 @@ public class FileManager {
 					data[3].equals("True"), data[4].equals("True"),data[5]);
 			currTableColumns.add(currColumn);
 		}
+		bf.close();
 		return schema;
 	}
 
