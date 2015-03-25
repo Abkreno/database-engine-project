@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.nan.utils.PropertiesReader;
+
 public class DBAppTest {
 	@Test
 	public void testPropertiesReader() throws IOException {

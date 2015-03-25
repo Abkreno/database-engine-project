@@ -1,4 +1,4 @@
-package com.nan;
+package com.nan.utils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ public class PropertiesReader {
 	private Properties properties;
 
 	public PropertiesReader() throws IOException {
-		propertiesFile = new FileReader(new File(System.getProperty("user.dir")
+		propertiesFile = new FileReader(new File(FileManager.userDirectory
 				+ "/config/DBApp.properties"));
 		properties = new Properties();
 		properties.load(propertiesFile);
