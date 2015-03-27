@@ -8,7 +8,7 @@ public class DBLinearHashTable extends LinearHashTable {
 
 	public DBLinearHashTable() {
 		super(
-				Integer.parseInt(PropertiesReader.readProperty("LHTLoadFactor")),
+				Float.parseFloat(PropertiesReader.readProperty("LHTLoadFactor")),
 				Integer.parseInt(PropertiesReader.readProperty("LHTBucketSize")));
 	}
 

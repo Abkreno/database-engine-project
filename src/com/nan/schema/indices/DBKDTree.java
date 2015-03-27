@@ -18,11 +18,16 @@ public class DBKDTree extends KDTree {
 		super.delete(modifiedKeys);
 	}
 
+	public Object search(Object[] key) {
+		Integer[] modifiedKeys = modifiyKeys(key);
+		return super.search(modifiedKeys);
+	}
+
 	private Integer[] modifiyKeys(Object[] key) {
 		Integer[] modifiedKeys = new Integer[key.length];
 		for (int i = 0; i < key.length; i++) {
 			if (key[i] instanceof String) {
-				modifiedKeys[i] = Integer.parseInt(key[i].toString());
+				modifiedKeys[i] = decodeString(key[i].toString());
 			} else if (key[i] instanceof Integer) {
 				modifiedKeys[i] = ((Integer) key[i]).intValue();
 			} else if (key[i] instanceof Character) {
@@ -34,4 +39,12 @@ public class DBKDTree extends KDTree {
 		return modifiedKeys;
 	}
 
+	public Integer decodeString(String str) {
+		int hash = 7;
+		int mod = 100000007;
+		for (int i = 0; i < str.length(); i++) {
+			hash = (((hash * 31) % mod) + str.charAt(i)) % mod;
+		}
+		return hash;
+	}
 }
