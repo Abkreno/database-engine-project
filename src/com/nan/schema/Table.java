@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.nan.DBAppException;
+import com.nan.DBEngineException;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
 import com.nan.utils.FileManager;
@@ -21,6 +22,8 @@ public class Table {
 	private Hashtable<Integer, Page> tablePages;
 	private Hashtable<String, DBLinearHashTable> tableIndices;
 	private Hashtable<String, DBKDTree> tableMultiIndices;
+
+	private static Hashtable<String, Column> tableSchema;
 
 	/**
 	 * Creates a Table and inizializes it's files (This constructor will only be
@@ -50,6 +53,7 @@ public class Table {
 		FileManager.createNewTable(strTableName);
 		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
+		this.tableSchema = Schema.getTableSchema(tableName);
 		createIndex(strKeyColName);
 		currentPage = new Page(tableName, tablePageCount);
 		ObjectManager.writePage(tableName, tablePageCount, currentPage);
@@ -67,6 +71,7 @@ public class Table {
 		this.tablePages = new Hashtable<Integer, Page>();
 		this.tableIndices = new Hashtable<String, DBLinearHashTable>();
 		this.tableMultiIndices = new Hashtable<String, DBKDTree>();
+		this.tableSchema = Schema.getTableSchema(tableName);
 		try {
 			ArrayList<String> indciesNames = FileManager
 					.readTableIndicies(tableName);
@@ -100,7 +105,8 @@ public class Table {
 		}
 	}
 
-	public void createMultiIndex(Hashtable<String, String> htblColNames) {
+	public void createMultiIndex(Hashtable<String, String> htblColNames)
+			throws DBAppException {
 		HashSet<String> colNames = new HashSet<String>();
 		Iterator<Entry<String, String>> entries = htblColNames.entrySet()
 				.iterator();
@@ -111,7 +117,10 @@ public class Table {
 		}
 		Object[] colNamesArr = colNames.toArray();
 		String colNamesId = getMultiIndexId(colNamesArr);
-
+		if (tableMultiIndices.containsKey(colNamesId)) {
+			throw new DBAppException("Multi Index on Columns "
+					+ Arrays.toString(colNamesArr) + " Already Exists");
+		}
 		DBKDTree multiIndex = new DBKDTree(colNamesArr.length);
 		tableMultiIndices.put(colNamesId, multiIndex);
 	}
@@ -124,6 +133,20 @@ public class Table {
 					+ (i == colNamesArr.length - 1 ? "" : "*");
 		}
 		return colNamesId;
+	}
+
+	public void insertIntoTable(Hashtable<String, String> htblColNameValue)
+			throws DBAppException {
+		if (currentPage.isFull()) {
+			tablePageCount++;
+			currentPage = new Page(tableName, tablePageCount);
+			ObjectManager.writePage(tableName, tablePageCount, currentPage);
+		}
+		try {
+			currentPage.insertInPage(new Record(htblColNameValue));
+		} catch (DBEngineException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void drop() {

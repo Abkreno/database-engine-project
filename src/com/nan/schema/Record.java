@@ -1,14 +1,14 @@
 package com.nan.schema;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Hashtable;
 
 @SuppressWarnings("serial")
 public class Record implements Serializable {
-	private ArrayList<String> values;
+	private Hashtable<String, String> colNameValue;
 
-	public Record(ArrayList<String> values) {
-		this.values = values;
+	public Record(Hashtable<String, String> htblColNameValue) {
+		this.colNameValue = htblColNameValue;
 	}
 
 }

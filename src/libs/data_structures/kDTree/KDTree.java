@@ -70,8 +70,8 @@ public class KDTree implements Serializable {
 		m_root = null;
 	}
 
-	public KDTree(boolean b) {
-		// TODO Auto-generated constructor stub
+	public KDTree(boolean unInizialized) {
+		
 	}
 
 	/**

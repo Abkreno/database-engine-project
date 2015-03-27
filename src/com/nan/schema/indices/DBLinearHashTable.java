@@ -9,8 +9,8 @@ import com.nan.utils.PropertiesReader;
 public class DBLinearHashTable extends LinearHashTable implements Serializable {
 	private boolean isInit;
 
-	public DBLinearHashTable(boolean x) {
-		super(x);
+	public DBLinearHashTable(boolean unInizialized) {
+		super(unInizialized);
 		isInit = false;
 	}
 

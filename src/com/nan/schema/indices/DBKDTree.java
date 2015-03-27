@@ -12,8 +12,8 @@ public class DBKDTree extends KDTree implements Serializable {
 		isInit = true;
 	}
 
-	public DBKDTree(boolean b) {
-		super(b);
+	public DBKDTree(boolean unInizialized) {
+		super(unInizialized);
 		isInit = false;
 	}
 

@@ -52,6 +52,12 @@ public class Schema {
 		return schema.get(tableName).containsKey(colName);
 	}
 
+	public static Hashtable<String, Column> getTableSchema(String tableName) {
+		if (!iniziliazed)
+			init();
+		return schema.get(tableName);
+	}
+
 	/**
 	 * return the schema as a CSV data in the same format as described in the
 	 * metadata.csv
