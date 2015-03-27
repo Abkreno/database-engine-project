@@ -142,7 +142,8 @@ public class CommandsTest {
 					((Hashtable<String, DBLinearHashTable>) f.get(table))
 							.keySet().contains("ID"));
 
-		} catch (NoSuchFieldException | SecurityException e) {
+		} catch (NoSuchFieldException e) {
+		} catch (SecurityException e) {
 		} catch (IllegalArgumentException e) {
 
 			e.printStackTrace();
