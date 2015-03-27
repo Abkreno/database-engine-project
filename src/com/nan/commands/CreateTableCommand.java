@@ -24,8 +24,7 @@ public class CreateTableCommand implements Command {
 	@Override
 	public void execute() throws DBAppException {
 		if (Schema.checkTableExist(tableName)) {
-			System.err.println("Table " + tableName + " Already Exists");
-			throw new DBAppException();
+			throw new DBAppException("Table " + tableName + " Already Exists");
 		}
 		dataBase.createTable(tableName, htblColNameType, htblColNameRefs,
 				strKeyColName);

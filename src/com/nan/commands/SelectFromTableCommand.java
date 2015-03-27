@@ -29,13 +29,12 @@ public class SelectFromTableCommand implements Command {
 
 	public Iterator executeAndReturn() throws DBEngineException, DBAppException {
 		if (!Schema.checkTableExist(tableName)) {
-			System.err.println("Table " + tableName + " Doesn't Exists");
-			throw new DBAppException();
+			throw new DBAppException("Table " + tableName + " Doesn't Exists");
 		} else {
 			Set<String> colNamesSet = colNameValue.keySet();
 			for (String colName : colNamesSet) {
-				System.err.println("Column " + colName + " Doesn't Exists");
-				throw new DBAppException();
+				throw new DBAppException("Column " + colName
+						+ " Doesn't Exists");
 			}
 		}
 		// TODO Print Selected Rows

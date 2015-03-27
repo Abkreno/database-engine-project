@@ -17,14 +17,11 @@ public class CreateIndexCommand implements Command {
 	@Override
 	public void execute() throws DBAppException {
 		if (!Schema.checkTableExist(tableName)) {
-			System.err.println("Table " + tableName + " Doesn't Exists");
-			throw new DBAppException();
+			throw new DBAppException("Table " + tableName + " Doesn't Exists");
 		} else if (!Schema.checkColExist(tableName, colName)) {
-			System.err.println("Column " + colName + " Doesn't Exists");
-			throw new DBAppException();
+			throw new DBAppException("Column " + colName + " Doesn't Exists");
 		} else if (Schema.checkIndexExist(tableName, colName)) {
-			System.err.println("Index On " + colName + " Already Exists");
-			throw new DBAppException();
+			throw new DBAppException("Index On " + colName + " Already Exists");
 		}
 		dataBase.createIndex(tableName, colName);
 		System.out.println("Index created on table '" + tableName + "'");
