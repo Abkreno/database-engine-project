@@ -65,7 +65,6 @@ public class KDTree {
 	 *            number of dimensions
 	 */
 	public KDTree(int k) {
-
 		m_K = k;
 		m_root = null;
 	}

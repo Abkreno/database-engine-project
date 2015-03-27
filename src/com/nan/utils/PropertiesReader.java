@@ -7,22 +7,26 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-	private FileReader propertiesFile;
-	private Properties properties;
+	private static FileReader propertiesFile;
+	private static Properties properties;
+	private static boolean initialized = false;
 
-	public PropertiesReader() throws IOException {
-		propertiesFile = new FileReader(new File(FileManager.userDirectory
-				+ "/config/DBApp.properties"));
-		properties = new Properties();
-		properties.load(propertiesFile);
+	public static String readProperty(String property) {
+		if (!initialized) {
+			init();
+		}
+		return properties.getProperty(property);
 	}
 
-	public int getMaximumRowsCountinPage() {
-		return Integer.parseInt(properties
-				.getProperty("MaximumRowsCountinPage"));
-	}
-
-	public int getBPlusTreeN() {
-		return Integer.parseInt(properties.getProperty("BPlusTreeN"));
+	private static void init() {
+		try {
+			propertiesFile = new FileReader(new File(FileManager.userDirectory
+					+ "/config/DBApp.properties"));
+			properties = new Properties();
+			properties.load(propertiesFile);
+			initialized = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

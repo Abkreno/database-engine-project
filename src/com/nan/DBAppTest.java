@@ -11,11 +11,16 @@ import com.nan.utils.PropertiesReader;
 public class DBAppTest {
 	@Test
 	public void testPropertiesReader() throws IOException {
-		PropertiesReader p = new PropertiesReader();
-		int maximumRowsCountinPage = p.getMaximumRowsCountinPage();
-		int bPlusTreeN = p.getBPlusTreeN();
+		int maximumRowsCountinPage = Integer.parseInt(PropertiesReader
+				.readProperty("MaximumRowsCountinPage"));
+		int bPlusTreeN = Integer.parseInt(PropertiesReader
+				.readProperty("BPlusTreeN"));
+		double LHTLoadFactor = Double.parseDouble(PropertiesReader
+				.readProperty("LinearHashTableLF"));
 		assertTrue("Maximum Rows Count in Page should be 200",
 				maximumRowsCountinPage == 200);
 		assertTrue("BPlusTree N should be 20", bPlusTreeN == 20);
+		assertTrue("LinearHashTable LoadFactor should be .75f",
+				LHTLoadFactor == 0.75f);
 	}
 }
