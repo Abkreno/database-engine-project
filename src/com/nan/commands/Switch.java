@@ -9,6 +9,7 @@ import com.nan.DBEngineException;
 public class Switch {
 	public static void execute(Command cmd) throws DBAppException,
 			DBEngineException {
+		System.out.println(cmd);
 		cmd.execute();
 	}
 

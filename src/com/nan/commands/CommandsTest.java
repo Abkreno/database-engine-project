@@ -60,7 +60,7 @@ public class CommandsTest {
 
 		assertFalse("Table folders shouldn't exist before creation",
 				tablePath.exists());
-
+		System.out.println(createTableCommand);
 		Switch.execute(createTableCommand);
 
 		assertTrue("Table HelloWorld should be created",
