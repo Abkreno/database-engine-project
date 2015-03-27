@@ -8,7 +8,7 @@ import java.util.Iterator;
 import com.nan.utils.FileManager;
 
 public class Schema {
-	private static Hashtable<String, ArrayList<Column>> schema;
+	private static Hashtable<String, Hashtable<String, Column>> schema;
 
 	public Schema() {
 		try {
@@ -19,13 +19,14 @@ public class Schema {
 	}
 
 	public void print() {
-		Iterator it = schema.keySet().iterator();
-		while (it.hasNext()) {
-			String tableName = (String) it.next();
+		Iterator<String> tableIt = schema.keySet().iterator();
+		while (tableIt.hasNext()) {
+			String tableName = tableIt.next();
 			System.out.println(tableName + " Columns:");
-			ArrayList<Column> currColumns = schema.get(tableName);
-			for (Column curr : currColumns) {
-				System.out.println(curr);
+			Hashtable<String, Column> currColumns = schema.get(tableName);
+			Iterator<String> columnIt = currColumns.keySet().iterator();
+			while (columnIt.hasNext()) {
+				System.out.println(currColumns.get(columnIt.next()));
 			}
 			System.out.println("-----------------------");
 		}
@@ -35,4 +36,17 @@ public class Schema {
 		return schema.containsKey(tableName);
 	}
 
+	public static boolean checkIndexExist(String tableName, String colName) {
+		return schema.get(tableName).get(colName).isIndexed();
+	}
+
+	public static boolean checkColExist(String tableName, String colName) {
+		return schema.get(tableName).containsKey(colName);
+	}
+
+	public static boolean checkMultiIndexExist(String tableName,
+			String colName1, String colName2) {
+		return schema.get(tableName).get(colName1).isIndexed()
+				&& schema.get(tableName).get(colName2).isIndexed();
+	}
 }

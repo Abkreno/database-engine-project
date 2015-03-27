@@ -17,4 +17,45 @@ public class Column {
 		return this.colName + ", " + this.colType + ", " + this.key + ", "
 				+ this.indexed + ", " + this.reference;
 	}
+
+	public String getColName() {
+		return colName;
+	}
+
+	public void setColName(String colName) {
+		this.colName = colName;
+	}
+
+	public String getColType() {
+		return colType;
+	}
+
+	public void setColType(String colType) {
+		this.colType = colType;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public boolean isKey() {
+		return key;
+	}
+
+	public void setKey(boolean key) {
+		this.key = key;
+	}
+
+	public boolean isIndexed() {
+		return indexed;
+	}
+
+	public void setIndexed(boolean indexed) {
+		this.indexed = indexed;
+	}
+
 }

@@ -13,9 +13,9 @@ import com.nan.schema.Table;
 public class FileManager {
 	protected static String userDirectory = System.getProperty("user.dir");
 
-	public static Hashtable<String, ArrayList<Column>> readSchema()
+	public static Hashtable<String, Hashtable<String, Column>> readSchema()
 			throws IOException {
-		Hashtable<String, ArrayList<Column>> schema = new Hashtable<String, ArrayList<Column>>();
+		Hashtable<String, Hashtable<String, Column>> schema = new Hashtable<String, Hashtable<String, Column>>();
 		File schemaFile = new File(userDirectory + "/data/metadata.csv");
 		BufferedReader bf = new BufferedReader(new FileReader(schemaFile));
 		String line;
@@ -23,11 +23,11 @@ public class FileManager {
 			String[] data = line.split(", ");
 			String tableName = data[0];
 			if (!schema.containsKey(tableName))
-				schema.put(tableName, new ArrayList<Column>());
-			ArrayList<Column> currTableColumns = schema.get(tableName);
+				schema.put(tableName, new Hashtable<String, Column>());
+			Hashtable<String, Column> currTableColumns = schema.get(tableName);
 			Column currColumn = new Column(data[1], data[2],
-					data[3].equals("True"), data[4].equals("True"),data[5]);
-			currTableColumns.add(currColumn);
+					data[3].equals("True"), data[4].equals("True"), data[5]);
+			currTableColumns.put(data[1], currColumn);
 		}
 		bf.close();
 		return schema;
