@@ -9,6 +9,7 @@ import com.nan.utils.FileManager;
 
 public class Schema {
 	private static Hashtable<String, Hashtable<String, Column>> schema;
+	private static boolean iniziliazed = false;
 
 	public Schema() {
 		init();
@@ -17,12 +18,15 @@ public class Schema {
 	public static void init() {
 		try {
 			schema = FileManager.readSchema();
+			iniziliazed = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void print() {
+		if (!iniziliazed)
+			init();
 		Iterator<String> tableIt = schema.keySet().iterator();
 		while (tableIt.hasNext()) {
 			String tableName = tableIt.next();
@@ -37,10 +41,14 @@ public class Schema {
 	}
 
 	public static boolean checkTableExist(String tableName) {
+		if (!iniziliazed)
+			init();
 		return schema.containsKey(tableName);
 	}
 
 	public static boolean checkColExist(String tableName, String colName) {
+		if (!iniziliazed)
+			init();
 		return schema.get(tableName).containsKey(colName);
 	}
 
@@ -51,6 +59,8 @@ public class Schema {
 	 * @return
 	 */
 	public static String[] getSchemaCSV() {
+		if (!iniziliazed)
+			init();
 		int resultLen = 0;
 		Iterator<Hashtable<String, Column>> sizeCountIt = schema.values()
 				.iterator();
@@ -75,7 +85,8 @@ public class Schema {
 	public static void addNewTable(String strTableName,
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName) {
-
+		if (!iniziliazed)
+			init();
 		Hashtable<String, Column> table = new Hashtable<String, Column>();
 
 		Iterator<Entry<String, String>> colNameType = htblColNameType

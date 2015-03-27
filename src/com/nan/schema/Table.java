@@ -42,12 +42,17 @@ public class Table {
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName)
 			throws DBAppException {
-
+		this.tablePages = new Hashtable<Integer, Page>();
+		this.tableIndices = new Hashtable<String, DBLinearHashTable>();
+		this.tableMultiIndices = new Hashtable<String, DBKDTree>();
 		this.tablePageCount = 0;
+		this.tableName = strTableName;
 		FileManager.createNewTable(strTableName);
 		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
 		createIndex(strKeyColName);
+		currentPage = new Page(tableName, tablePageCount);
+		ObjectManager.writePage(tableName, tablePageCount, currentPage);
 	}
 
 	/**
@@ -57,7 +62,11 @@ public class Table {
 	 * @param strTableName
 	 */
 	public Table(String strTableName) {
-		tablePageCount = FileManager.getPageFilesCount(strTableName);
+		this.tableName = strTableName;
+		this.tablePageCount = FileManager.getPageFilesCount(strTableName) - 1;
+		this.tablePages = new Hashtable<Integer, Page>();
+		this.tableIndices = new Hashtable<String, DBLinearHashTable>();
+		this.tableMultiIndices = new Hashtable<String, DBKDTree>();
 		try {
 			ArrayList<String> indciesNames = FileManager
 					.readTableIndicies(tableName);

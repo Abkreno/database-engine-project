@@ -7,7 +7,7 @@ import com.nan.schema.Table;
 
 public class DBApp {
 	public void init() {
-
+		
 	}
 
 	public void createTable(String strTableName,

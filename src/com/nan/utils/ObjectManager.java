@@ -15,7 +15,8 @@ public class ObjectManager {
 
 	public static Page readPage(String tableName, int pageNumber) {
 		File[] tablePagesPathes = FileManager
-				.getFiles(FileManager.tablesDirectory + "/pages");
+				.getFiles(FileManager.tablesDirectory + "/" + tableName
+						+ "/pages");
 		File tempFile = new File(tablePagesPathes[pageNumber].toString());
 		ObjectInputStream ois;
 		Page lastPage = null;
