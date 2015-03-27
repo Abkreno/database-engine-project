@@ -72,4 +72,8 @@ public class Page implements Serializable {
 	public void save() {
 		FileManager.savePage(tableName, pageNumber, pageRows);
 	}
+
+	public int getRowCount() {
+		return rowCount;
+	}
 }

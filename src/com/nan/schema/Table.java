@@ -116,6 +116,7 @@ public class Table {
 			colNames.add(entry.getKey());
 		}
 		Object[] colNamesArr = colNames.toArray();
+		Arrays.sort(colNamesArr);
 		String colNamesId = getMultiIndexId(colNamesArr);
 		if (tableMultiIndices.containsKey(colNamesId)) {
 			throw new DBAppException("Multi Index on Columns "
@@ -127,7 +128,6 @@ public class Table {
 
 	public String getMultiIndexId(Object[] colNamesArr) {
 		String colNamesId = "";
-		Arrays.sort(colNamesArr);
 		for (int i = 0; i < colNamesArr.length; i++) {
 			colNamesId += colNamesArr[i]
 					+ (i == colNamesArr.length - 1 ? "" : "*");
@@ -147,6 +147,27 @@ public class Table {
 			currentPage.save();
 		} catch (DBEngineException e) {
 			e.printStackTrace();
+		}
+		Iterator<String> colNames = htblColNameValue.keySet().iterator();
+		Object[] colNamesArr = new Object[htblColNameValue.size()];
+		int index = 0;
+		while (colNames.hasNext()) {
+			String colName = colNames.next();
+			if (tableIndices.contains(colName)) {
+				tableIndices.get(colName).insert(htblColNameValue.get(colName),
+						tablePageCount + "," + (currentPage.getRowCount() - 1));
+			}
+			colNamesArr[index++] = colName;
+		}
+		Arrays.sort(colNamesArr);
+		String colNamesId = getMultiIndexId(colNamesArr);
+		if (tableMultiIndices.containsKey(colNamesId)) {
+			Object[] keyValues = new Object[colNamesArr.length];
+			for (int i = 0; i < keyValues.length; i++) {
+				keyValues[i] = htblColNameValue.get(colNamesArr[i]);
+			}
+			tableMultiIndices.get(colNamesId).insert(keyValues,
+					tablePageCount + "," + (currentPage.getRowCount() - 1));
 		}
 	}
 
