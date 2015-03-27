@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.nan.schema.Page;
+import com.nan.schema.Schema;
 import com.nan.schema.Table;
 import com.nan.utils.FileManager;
 
@@ -19,6 +20,12 @@ public class DBApp {
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName)
 			throws DBAppException {
+		if (strTableName.contains("*")) {
+			throw new DBAppException("Table names can't contain * ");
+		} else if (Schema.checkTableExist(strTableName)) {
+			throw new DBAppException("Table " + strTableName
+					+ " Already Exists");
+		}
 		Table table = new Table(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
 		cachedTables.put(strTableName, table);
@@ -26,6 +33,13 @@ public class DBApp {
 
 	public void createIndex(String strTableName, String strColName)
 			throws DBAppException {
+		if (!Schema.checkTableExist(strTableName)) {
+			throw new DBAppException("Table " + strTableName
+					+ " Doesn't Exists");
+		} else if (!Schema.checkColExist(strTableName, strColName)) {
+			throw new DBAppException("Column " + strColName + " Doesn't Exists");
+		}
+
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
@@ -42,6 +56,17 @@ public class DBApp {
 
 	public void createMultiDimIndex(String strTableName,
 			Hashtable<String, String> htblColNames) {
+
+		if (!Schema.checkTableExist(strTableName)) {
+			try {
+				throw new DBAppException("Table " + strTableName
+						+ " Doesn't Exists");
+			} catch (DBAppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
@@ -61,6 +86,12 @@ public class DBApp {
 
 	public void insertIntoTable(String strTableName,
 			Hashtable<String, String> htblColNameValue) throws DBAppException {
+
+		if (!Schema.checkTableExist(strTableName)) {
+			throw new DBAppException("Table " + strTableName
+					+ " Doesn't Exists");
+		}
+
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
@@ -79,6 +110,17 @@ public class DBApp {
 	public void deleteFromTable(String strTableName,
 			Hashtable<String, String> htblColNameValue, String strOperator)
 			throws DBEngineException {
+
+		if (!Schema.checkTableExist(strTableName)) {
+			try {
+				throw new DBAppException("Table " + strTableName
+						+ " Doesn't Exists");
+			} catch (DBAppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
@@ -89,6 +131,16 @@ public class DBApp {
 	public Iterator selectFromTable(String strTableName,
 			Hashtable<String, String> htblColNameValue, String strOperator)
 			throws DBEngineException {
+		if (!Schema.checkTableExist(strTableName)) {
+			try {
+				throw new DBAppException("Table " + strTableName
+						+ " Doesn't Exists");
+			} catch (DBAppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}

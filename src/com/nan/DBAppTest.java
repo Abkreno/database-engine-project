@@ -4,11 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.Hashtable;
 
 import libs.data_structures.kDTree.KDTree;
 
 import org.junit.Test;
 
+import com.nan.commands.Command;
+import com.nan.commands.CreateTableCommand;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
 import com.nan.utils.PropertiesReader;
@@ -70,4 +73,5 @@ public class DBAppTest {
 		String abdo = tree.search(keys3).toString();
 		assertEquals(abdo, "Abdo, 28-10500");
 	}
+
 }

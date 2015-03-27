@@ -23,13 +23,7 @@ public class CreateMultiDimIndexCommand implements Command {
 	public void execute() throws DBAppException {
 		if (!Schema.checkTableExist(tableName)) {
 			throw new DBAppException("Table " + tableName + " Doesn't Exists");
-		} else {
-			Set<String> colNamesSet = colNames.keySet();
-			for (String colName : colNamesSet) {
-				throw new DBAppException("Column " + colName
-						+ " Doesn't Exists");
-			}
-		}
+		} 
 		dataBase.createMultiDimIndex(tableName, colNames);
 		System.out.println("MultiIndex created on table '" + tableName + "'");
 	}
