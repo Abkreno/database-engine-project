@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.nan.schema.Table;
-import com.nan.utils.FileManager;
 
 public class DBApp {
 	public void init() {

@@ -128,6 +128,7 @@ public class FileManager {
 		while ((line = bf.readLine()) != null) {
 			result.add(line);
 		}
+		bf.close();
 		return result;
 	}
 
@@ -136,8 +137,9 @@ public class FileManager {
 		return tempFile.listFiles();
 	}
 
-	public static int getPageFilesCount() {
-		tempFile = new File(tablesDirectory + "/pages");
+	public static int getPageFilesCount(String tableName) {
+		tempFile = new File(tablesDirectory + "/" + tableName + "/pages");
 		return tempFile.listFiles().length;
 	}
+
 }
