@@ -157,9 +157,9 @@ public class CommandsTest {
 	@After
 	public void clearTablePath() {
 		String tableName = "HelloWorld";
-
 		String userDirectory = System.getProperty("user.dir");
 		String tablesDirectory = userDirectory + "/data/tables/";
 		FileManager.deleteFolder(tablesDirectory + "/" + tableName);
 	}
+
 }

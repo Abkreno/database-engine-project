@@ -30,14 +30,33 @@ public class DBApp {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
 		Table table = cachedTables.get(strTableName);
+
+		table.createIndex(strColName);
+		try {
+			saveAll();
+		} catch (DBEngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void createMultiDimIndex(String strTableName,
-			Hashtable<String, String> htblColNames) throws DBAppException {
+			Hashtable<String, String> htblColNames) {
 		if (!cachedTables.contains(strTableName)) {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
 		Table table = cachedTables.get(strTableName);
+
+		try {
+			table.createMultiIndex(htblColNames);
+			saveAll();
+		} catch (DBAppException e1) {
+
+			e1.printStackTrace();
+		} catch (DBEngineException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 	public void insertIntoTable(String strTableName,
@@ -46,6 +65,15 @@ public class DBApp {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
 		Table table = cachedTables.get(strTableName);
+
+		table.insertIntoTable(htblColNameValue);
+
+		try {
+			saveAll();
+		} catch (DBEngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteFromTable(String strTableName,
