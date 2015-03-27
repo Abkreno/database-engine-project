@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import libs.data_structures.kDTree.KDTree;
 
@@ -126,6 +127,29 @@ public class DBAppTest {
 		t.insertIntoTable(htb);
 		try {
 			t.deleteFromTable(htb, "And");
+		} catch (DBEngineException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testSelect() throws DBAppException {
+		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
+		htblColNameType.put("Name", "String");
+		htblColNameType.put("Age", "Integer");
+		htblColNameType.put("Mail", "Integer");
+
+		Hashtable<String, String> htblColNameRefs = new Hashtable<String, String>();
+		String strKeyColName = "Age";
+		Table t = new Table("Person", htblColNameType, htblColNameRefs,
+				strKeyColName);
+		Hashtable<String, String> htb = new Hashtable<String, String>();
+		htb.put("Name", "hey");
+		htb.put("Age", "11");
+		htb.put("Mail", "1@hotmail.com");
+		t.insertIntoTable(htb);
+		try {
+			Iterator it = t.selectFromTable(htb, "And");
 		} catch (DBEngineException e) {
 			e.printStackTrace();
 		}
