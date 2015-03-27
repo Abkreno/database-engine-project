@@ -40,10 +40,6 @@ public class FileManager {
 		return schema;
 	}
 
-	public static Table readTable(String tableName) {
-		return null;
-	}
-
 	public static void createNewTable(String strTableName) {
 		String folderPath = tablesDirectory + strTableName;
 		createNewFolder(folderPath);
