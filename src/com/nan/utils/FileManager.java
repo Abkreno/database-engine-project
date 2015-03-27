@@ -63,6 +63,31 @@ public class FileManager {
 		}
 	}
 
+	/**
+	 * Deleting a directory recursively
+	 * 
+	 * @param path
+	 *            the path of the directory
+	 * @return
+	 */
+	public static boolean deleteFolder(String path) {
+		File directory = new File(path);
+
+		if (directory.exists()) {
+			File[] files = directory.listFiles();
+			if (null != files) {
+				for (int i = 0; i < files.length; i++) {
+					if (files[i].isDirectory()) {
+						deleteFolder(files[i].getPath());
+					} else {
+						files[i].delete();
+					}
+				}
+			}
+		}
+		return (directory.delete());
+	}
+
 	public static void createNewFile(String path) {
 		tempFile = new File(path);
 		try {
@@ -87,6 +112,7 @@ public class FileManager {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
 		for (String curr : schemaCSV) {
 			bw.write(curr);
+			bw.newLine();
 		}
 		bw.close();
 	}
