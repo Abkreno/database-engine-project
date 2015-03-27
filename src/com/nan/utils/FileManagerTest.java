@@ -41,6 +41,9 @@ public class FileManagerTest {
 
 		FileManager.deleteFolder(folderPath);
 
+		assertTrue("test folder should not contain any files",
+				f.listFiles().length == 0);
+		
 		assertFalse("The file inside the folder should be deleted",
 				fileInside.exists());
 

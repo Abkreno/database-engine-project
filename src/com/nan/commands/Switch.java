@@ -7,11 +7,12 @@ import com.nan.DBEngineException;
 
 /** The Invoker class */
 public class Switch {
-	public void execute(Command cmd) throws DBAppException, DBEngineException {
+	public static void execute(Command cmd) throws DBAppException,
+			DBEngineException {
 		cmd.execute();
 	}
 
-	public Iterator executeAndReturn(SelectFromTableCommand cmd)
+	public static Iterator executeAndReturn(SelectFromTableCommand cmd)
 			throws DBAppException, DBEngineException {
 		return cmd.executeAndReturn();
 	}
