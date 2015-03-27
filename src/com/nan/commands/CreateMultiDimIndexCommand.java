@@ -30,10 +30,6 @@ public class CreateMultiDimIndexCommand implements Command {
 						+ " Doesn't Exists");
 			}
 		}
-		if (Schema.checkMultiIndexExist(tableName, colNames)) {
-			throw new DBAppException(
-					"MultiIndex On These Columns Already Exists");
-		}
 		dataBase.createMultiDimIndex(tableName, colNames);
 		System.out.println("MultiIndex created on table '" + tableName + "'");
 	}

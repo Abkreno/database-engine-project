@@ -20,8 +20,6 @@ public class CreateIndexCommand implements Command {
 			throw new DBAppException("Table " + tableName + " Doesn't Exists");
 		} else if (!Schema.checkColExist(tableName, colName)) {
 			throw new DBAppException("Column " + colName + " Doesn't Exists");
-		} else if (Schema.checkIndexExist(tableName, colName)) {
-			throw new DBAppException("Index On " + colName + " Already Exists");
 		}
 		dataBase.createIndex(tableName, colName);
 		System.out.println("Index created on table '" + tableName + "'");

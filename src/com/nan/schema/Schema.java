@@ -40,18 +40,8 @@ public class Schema {
 		return schema.containsKey(tableName);
 	}
 
-	public static boolean checkIndexExist(String tableName, String colName) {
-		return schema.get(tableName).get(colName).isIndexed();
-	}
-
 	public static boolean checkColExist(String tableName, String colName) {
 		return schema.get(tableName).containsKey(colName);
-	}
-
-	public static boolean checkMultiIndexExist(String tableName,
-			Hashtable<String, String> colNames) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	/**
