@@ -111,4 +111,14 @@ public class Table {
 		}
 		return colNamesId;
 	}
+
+	public void drop() {
+		String userDirectory = System.getProperty("user.dir");
+		String tablesDirectory = userDirectory + "/data/tables/";
+		String folderPath = tablesDirectory + this.tableName;
+
+		FileManager.deleteFolder(folderPath);
+
+		// TODO Delete from Schema when
+	}
 }
