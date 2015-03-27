@@ -4,6 +4,7 @@ import java.util.Hashtable;
 
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
+import com.nan.utils.FileManager;
 
 public class Table {
 	private String tableName;
@@ -29,6 +30,9 @@ public class Table {
 	public Table(String strTableName,
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName) {
+		FileManager.createNewTable(strTableName);
+		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
+				strKeyColName);
 	}
 
 	/**

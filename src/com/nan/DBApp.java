@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.nan.schema.Table;
+import com.nan.utils.FileManager;
 
 public class DBApp {
 	public void init() {
@@ -14,7 +15,8 @@ public class DBApp {
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName)
 			throws DBAppException {
-		Table table = new Table(strTableName,htblColNameType,htblColNameRefs,strKeyColName);
+		Table table = new Table(strTableName, htblColNameType, htblColNameRefs,
+				strKeyColName);
 	}
 
 	public void createIndex(String strTableName, String strColName)
@@ -24,7 +26,7 @@ public class DBApp {
 
 	public void createMultiDimIndex(String strTableName,
 			Hashtable<String, String> htblColNames) throws DBAppException {
-		
+
 	}
 
 	public void insertIntoTable(String strTableName,
