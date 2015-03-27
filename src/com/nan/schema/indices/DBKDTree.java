@@ -26,9 +26,9 @@ public class DBKDTree extends KDTree implements Serializable {
 		super.insert(modifiedKeys, value);
 	}
 
-	public void delete(Object[] key) {
+	public Object delete(Object[] key) {
 		Integer[] modifiedKeys = modifiyKeys(key);
-		super.delete(modifiedKeys);
+		return super.delete(modifiedKeys);
 	}
 
 	public Object search(Object[] key) {

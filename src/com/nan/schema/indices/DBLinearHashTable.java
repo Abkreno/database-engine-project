@@ -42,8 +42,8 @@ public class DBLinearHashTable extends LinearHashTable implements Serializable {
 		return modifiedKey;
 	}
 
-	public void delete(Object key) {
-		super.remove(modifyKey(key));
+	public Object delete(Object key) {
+		return super.remove(modifyKey(key));
 	}
 
 	public Integer decodeString(String str) {

@@ -186,6 +186,20 @@ public class Table {
 			String colName = colNames.next();
 			if (tableIndices.contains(colName)) {
 				checkIndexInizialized(colName);
+				Object result = tableIndices.get(colName).delete(
+						htblColNameValue.get(colName));
+				String[] data = result.toString().split(",");
+				int pageNumber = Integer.parseInt(data[0]);
+				int rowNumber = Integer.parseInt(data[1]);
+				Page page = null;
+				if (!tablePages.contains(pageNumber)) {
+					page = ObjectManager.readPage(tableName, pageNumber);
+					tablePages.put(pageNumber, page);
+				} else {
+					page = tablePages.get(pageNumber);
+				}
+				page.deleteFromPage(rowNumber);
+				page.save();
 
 				return true;
 			}
@@ -199,7 +213,19 @@ public class Table {
 			for (int i = 0; i < keyValues.length; i++) {
 				keyValues[i] = htblColNameValue.get(colNamesArr[i]);
 			}
-			//
+			Object result = tableMultiIndices.get(colNamesId).delete(keyValues);
+			String[] data = result.toString().split(",");
+			int pageNumber = Integer.parseInt(data[0]);
+			int rowNumber = Integer.parseInt(data[1]);
+			Page page = null;
+			if (!tablePages.contains(pageNumber)) {
+				page = ObjectManager.readPage(tableName, pageNumber);
+				tablePages.put(pageNumber, page);
+			} else {
+				page = tablePages.get(pageNumber);
+			}
+			page.deleteFromPage(rowNumber);
+			page.save();
 			return true;
 		}
 		return false;
@@ -221,7 +247,10 @@ public class Table {
 
 	public void deleteFromTable(Hashtable<String, String> htblColNameValue,
 			String strOperator) throws DBEngineException {
-
+		if (deleteFromIndecies(htblColNameValue,
+				strOperator.equalsIgnoreCase("AND"))) {
+			return;
+		}
 		// In case there are no indicies
 		for (int i = 0; i < tablePageCount; i++) {
 			Page page;

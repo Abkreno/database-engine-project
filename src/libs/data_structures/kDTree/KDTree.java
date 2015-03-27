@@ -71,7 +71,7 @@ public class KDTree implements Serializable {
 	}
 
 	public KDTree(boolean unInizialized) {
-		
+
 	}
 
 	/**
@@ -138,13 +138,14 @@ public class KDTree implements Serializable {
 	 * 
 	 * @param key
 	 *            key for KD-tree node
+	 * @return
 	 * 
 	 * @throws KeySizeException
 	 *             if key.length mismatches K
 	 * @throws KeyMissingException
 	 *             if no node in tree has key
 	 */
-	public void delete(Object[] key) {
+	public Object delete(Object[] key) {
 
 		if (key.length != m_K) {
 			throw new RuntimeException("kDTree: wrong key size!");
@@ -160,6 +161,7 @@ public class KDTree implements Serializable {
 			}
 
 			m_count--;
+			return t.v;
 		}
 	}
 
