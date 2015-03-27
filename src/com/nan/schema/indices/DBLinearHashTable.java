@@ -7,9 +7,8 @@ import libs.data_structures.linearHashTable.LinearHashTable;
 public class DBLinearHashTable extends LinearHashTable {
 
 	public DBLinearHashTable() {
-		super(
-				Float.parseFloat(PropertiesReader.readProperty("LHTLoadFactor")),
-				Integer.parseInt(PropertiesReader.readProperty("LHTBucketSize")));
+		super(PropertiesReader.LHT_LOAD_FACTOR,
+				PropertiesReader.LHT_BUCKET_SIZE);
 	}
 
 	public void insert(Integer key, String value) {

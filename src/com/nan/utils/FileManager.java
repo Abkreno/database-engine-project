@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.nan.schema.Column;
+import com.nan.schema.Record;
 import com.nan.schema.Table;
 
 public class FileManager {
@@ -35,5 +35,9 @@ public class FileManager {
 
 	public static Table readTable(String tableName) {
 		return null;
+	}
+
+	public static void savePage(String tableName, int pageNumber,
+			Hashtable<Integer, Record> pageRows) {
 	}
 }

@@ -2,13 +2,14 @@ package com.nan.schema;
 
 import java.util.Hashtable;
 
+import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
 
 public class Table {
 	private String tableName;
-	private Hashtable<String, Page> tablePages;
+	private Hashtable<Integer, Page> tablePages;
 	private Hashtable<String, DBLinearHashTable> tableIndices;
-	private Hashtable<String, DBLinearHashTable> tableMultiIndices;
+	private Hashtable<String, DBKDTree> tableMultiIndices;
 
 	/**
 	 * Creates a Table and inizializes it's files (This constructor will only be
