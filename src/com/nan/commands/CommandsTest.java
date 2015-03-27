@@ -12,6 +12,7 @@ import com.nan.DBApp;
 import com.nan.DBAppException;
 import com.nan.DBEngineException;
 import com.nan.schema.Schema;
+import com.nan.utils.FileManager;
 
 public class CommandsTest {
 
@@ -75,6 +76,35 @@ public class CommandsTest {
 
 		assertTrue("Table folders should be created", tablePath.exists()
 				&& tablePath.isDirectory());
+
+		FileManager.deleteFolder(tablesDirectory);
+
+	}
+
+	@Test(expected = DBAppException.class)
+	public void createExistingTable() throws DBAppException, DBEngineException {
+		DBApp database = new DBApp();
+
+		Hashtable<String, String> colNameType = new Hashtable<String, String>();
+
+		colNameType.put("Name", "java.lang.String");
+		colNameType.put("ID", "java.lang.Integer");
+
+		String tableName = "HelloWorld";
+
+		String userDirectory = System.getProperty("user.dir");
+		String tablesDirectory = userDirectory + "/data/tables/";
+
+		Command createTableCommand = new CreateTableCommand(database,
+				tableName, colNameType, new Hashtable<String, String>(), "ID");
+
+		Schema.init();
+
+		Switch.execute(createTableCommand);
+
+		FileManager.deleteFolder(tablesDirectory + "/" + tableName);
+
+		Switch.execute(createTableCommand);
 
 	}
 }
