@@ -46,7 +46,7 @@ public class Page {
 	 * @param rowNumber
 	 */
 	public void deleteFromPage(int rowNumber) {
-		// TODO set deleted flag of the record to true or make the record = null
+		pageRows.put(rowNumber, null);
 		save();
 	}
 
