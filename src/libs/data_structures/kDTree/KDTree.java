@@ -70,6 +70,10 @@ public class KDTree implements Serializable {
 		m_root = null;
 	}
 
+	public KDTree(boolean b) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Insert a node in a KD-tree. Uses algorithm translated from 352.ins.c of
 	 * 

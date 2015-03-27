@@ -10,6 +10,10 @@ public class DBKDTree extends KDTree implements Serializable {
 		super(k);
 	}
 
+	public DBKDTree(boolean b) {
+		super(b);
+	}
+
 	public void insert(Object[] key, Object value) {
 		Integer[] modifiedKeys = modifiyKeys(key);
 		super.insert(modifiedKeys, value);

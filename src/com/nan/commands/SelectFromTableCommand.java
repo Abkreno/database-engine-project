@@ -30,12 +30,6 @@ public class SelectFromTableCommand implements Command {
 	public Iterator executeAndReturn() throws DBEngineException, DBAppException {
 		if (!Schema.checkTableExist(tableName)) {
 			throw new DBAppException("Table " + tableName + " Doesn't Exists");
-		} else {
-			Set<String> colNamesSet = colNameValue.keySet();
-			for (String colName : colNamesSet) {
-				throw new DBAppException("Column " + colName
-						+ " Doesn't Exists");
-			}
 		}
 		// TODO Print Selected Rows
 		return dataBase.selectFromTable(tableName, colNameValue, operator);

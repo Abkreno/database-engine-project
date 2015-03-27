@@ -23,12 +23,6 @@ public class InsertIntoTableCommand implements Command {
 	public void execute() throws DBAppException {
 		if (!Schema.checkTableExist(tableName)) {
 			throw new DBAppException("Table " + tableName + " Doesn't Exists");
-		} else {
-			Set<String> colNamesSet = colNameValue.keySet();
-			for (String colName : colNamesSet) {
-				throw new DBAppException("Column " + colName
-						+ " Doesn't Exists");
-			}
 		}
 		dataBase.insertIntoTable(tableName, colNameValue);
 		System.out.println("One row effected!");

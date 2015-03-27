@@ -132,6 +132,21 @@ public class FileManager {
 		return result;
 	}
 
+	public static void writeTableIndicies(String strTableName, String indexName)
+			throws IOException {
+		ArrayList<String> indecies = readTableIndicies(strTableName);
+		indecies.add(indexName);
+		String indicesFolderPath = tablesDirectory + strTableName
+				+ "/indices/indices-info.txt";
+		tempFile = new File(indicesFolderPath);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+		for (String index : indecies) {
+			bw.write(index);
+			bw.newLine();
+		}
+		bw.close();
+	}
+
 	public static File[] getFiles(String path) {
 		tempFile = new File(path);
 		return tempFile.listFiles();

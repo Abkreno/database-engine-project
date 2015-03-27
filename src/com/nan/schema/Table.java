@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import libs.data_structures.kDTree.KDTree;
+
 import com.nan.DBAppException;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
@@ -73,9 +75,9 @@ public class Table {
 			for (String index : indciesNames) {
 				if (index.contains("*")) {
 					tableMultiIndices.put(getMultiIndexId(index.split("*")),
-							null);
+							new DBKDTree(false));
 				} else {
-					tableIndices.put(index, null);
+					tableIndices.put(index, new DBLinearHashTable(false));
 				}
 			}
 		} catch (IOException e) {
@@ -93,6 +95,11 @@ public class Table {
 		DBLinearHashTable index = new DBLinearHashTable();
 		tableIndices.put(colName, index);
 		ObjectManager.writeIndex(tableName, colName, index);
+		try {
+			FileManager.writeTableIndicies(tableName, colName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void createMultiIndex(Hashtable<String, String> htblColNames) {

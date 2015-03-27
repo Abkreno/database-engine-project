@@ -36,6 +36,9 @@ public class LinearHashTable implements Map<Integer, String>, Serializable {
 		init();
 	}
 
+	public LinearHashTable(boolean x) {
+	}
+
 	private void init() {
 		size = 0;
 		digits = 1;

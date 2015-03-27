@@ -25,12 +25,6 @@ public class DeleteFromTableCommand implements Command {
 	public void execute() throws DBAppException, DBEngineException {
 		if (!Schema.checkTableExist(tableName)) {
 			throw new DBAppException("Table " + tableName + " Doesn't Exists");
-		} else {
-			Set<String> colNamesSet = colNameValue.keySet();
-			for (String colName : colNamesSet) {
-				throw new DBAppException("Column " + colName
-						+ " Doesn't Exists");
-			}
 		}
 		dataBase.deleteFromTable(tableName, colNameValue, operator);
 		System.out.println("One row deleted!");
