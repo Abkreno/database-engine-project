@@ -148,12 +148,17 @@ public class Table {
 		} catch (DBEngineException e) {
 			e.printStackTrace();
 		}
+		insetIntoIndecies(htblColNameValue);
+	}
+
+	private void insetIntoIndecies(Hashtable<String, String> htblColNameValue) {
 		Iterator<String> colNames = htblColNameValue.keySet().iterator();
 		Object[] colNamesArr = new Object[htblColNameValue.size()];
 		int index = 0;
 		while (colNames.hasNext()) {
 			String colName = colNames.next();
 			if (tableIndices.contains(colName)) {
+				checkIndexInizialized(colName);
 				tableIndices.get(colName).insert(htblColNameValue.get(colName),
 						tablePageCount + "," + (currentPage.getRowCount() - 1));
 			}
@@ -162,12 +167,55 @@ public class Table {
 		Arrays.sort(colNamesArr);
 		String colNamesId = getMultiIndexId(colNamesArr);
 		if (tableMultiIndices.containsKey(colNamesId)) {
+			checkMultiIndexInizialized(colNamesId);
 			Object[] keyValues = new Object[colNamesArr.length];
 			for (int i = 0; i < keyValues.length; i++) {
 				keyValues[i] = htblColNameValue.get(colNamesArr[i]);
 			}
 			tableMultiIndices.get(colNamesId).insert(keyValues,
 					tablePageCount + "," + (currentPage.getRowCount() - 1));
+		}
+	}
+
+	private boolean deleteFromIndecies(
+			Hashtable<String, String> htblColNameValue, boolean and) {
+		Iterator<String> colNames = htblColNameValue.keySet().iterator();
+		Object[] colNamesArr = new Object[htblColNameValue.size()];
+		int index = 0;
+		while (colNames.hasNext()) {
+			String colName = colNames.next();
+			if (tableIndices.contains(colName)) {
+				checkIndexInizialized(colName);
+
+				return true;
+			}
+			colNamesArr[index++] = colName;
+		}
+		Arrays.sort(colNamesArr);
+		String colNamesId = getMultiIndexId(colNamesArr);
+		if (tableMultiIndices.containsKey(colNamesId)) {
+			checkMultiIndexInizialized(colNamesId);
+			Object[] keyValues = new Object[colNamesArr.length];
+			for (int i = 0; i < keyValues.length; i++) {
+				keyValues[i] = htblColNameValue.get(colNamesArr[i]);
+			}
+			//
+			return true;
+		}
+		return false;
+	}
+
+	private void checkIndexInizialized(String colName) {
+		if (!tableIndices.get(colName).isIniziliazed()) {
+			tableIndices.put(colName,
+					ObjectManager.readIInex(tableName, colName));
+		}
+	}
+
+	private void checkMultiIndexInizialized(String colNamesId) {
+		if (!tableMultiIndices.get(colNamesId).isIniziliazed()) {
+			tableMultiIndices.put(colNamesId,
+					ObjectManager.readMultiInex(tableName, colNamesId));
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Hashtable;
 
 import com.nan.schema.Page;
 import com.nan.schema.indices.DBKDTree;
@@ -82,5 +83,19 @@ public class ObjectManager {
 			return false;
 		}
 		return true;
+	}
+
+	public static DBKDTree readMultiInex(String tableName, String colNamesId) {
+		File tempFile = new File(FileManager.tablesDirectory + "/" + tableName
+				+ "/indices/" + colNamesId + ".ser");
+
+		return null;
+	}
+
+	public static DBLinearHashTable readIInex(String tableName, String colName) {
+		File tempFile = new File(FileManager.tablesDirectory + "/" + tableName
+				+ "/indices/" + colName + ".ser");
+
+		return null;
 	}
 }
