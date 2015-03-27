@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.nan.commands.Command;
 import com.nan.commands.CreateTableCommand;
+import com.nan.schema.Table;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
 import com.nan.utils.PropertiesReader;
@@ -72,6 +73,39 @@ public class DBAppTest {
 		assertEquals(kady, "Kady, 28-9799");
 		String abdo = tree.search(keys3).toString();
 		assertEquals(abdo, "Abdo, 28-10500");
+	}
+
+	@Test
+	public void testCreate() throws DBAppException {
+		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
+		htblColNameType.put("Name", "String");
+		htblColNameType.put("Age", "Integer");
+		htblColNameType.put("Mail", "Integer");
+
+		Hashtable<String, String> htblColNameRefs = new Hashtable<String, String>();
+		String strKeyColName = "Age";
+		Table t = new Table("Person", htblColNameType, htblColNameRefs,
+				strKeyColName);
+
+		Table t2 = new Table("Person");
+	}
+
+	@Test
+	public void testInsert() throws DBAppException {
+		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
+		htblColNameType.put("Name", "String");
+		htblColNameType.put("Age", "Integer");
+		htblColNameType.put("Mail", "Integer");
+
+		Hashtable<String, String> htblColNameRefs = new Hashtable<String, String>();
+		String strKeyColName = "Age";
+		Table t = new Table("Person", htblColNameType, htblColNameRefs,
+				strKeyColName);
+		Hashtable<String, String> htb = new Hashtable<String, String>();
+		htb.put("Name", "hey");
+		htb.put("Age", "11");
+		htb.put("Mail", "1@hotmail.com");
+		t.insertIntoTable(htb);
 	}
 
 }
