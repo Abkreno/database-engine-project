@@ -265,4 +265,11 @@ public class Table {
 
 		}
 	}
+
+	public void saveAllPages() {
+		Iterator<Page> it = tablePages.values().iterator();
+		while (it.hasNext()) {
+			it.next().save();
+		}
+	}
 }
