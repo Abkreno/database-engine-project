@@ -146,7 +146,7 @@ public class DBApp {
 		}
 		Table table = cachedTables.get(strTableName);
 		saveAll();
-		return null;
+		return table.selectFromTable(htblColNameValue, strOperator);
 	}
 
 	public void saveAll() throws DBEngineException {

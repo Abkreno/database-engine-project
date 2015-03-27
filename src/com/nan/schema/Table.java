@@ -266,6 +266,81 @@ public class Table {
 		}
 	}
 
+	public Iterator<Record> selectFromTable(
+			Hashtable<String, String> htblColNameValue, String strOperator)
+			throws DBEngineException {
+		Iterator<Record> result = selectFromIndecies(htblColNameValue,
+				strOperator.equalsIgnoreCase("AND"));
+		if (result != null) {
+			return result;
+		}
+		// In case there are no indicies
+		for (int i = 0; i < tablePageCount; i++) {
+			Page page;
+			if (!tablePages.contains(i)) {
+				page = ObjectManager.readPage(tableName, i);
+				tablePages.put(i, page);
+			} else {
+				page = tablePages.get(i);
+			}
+			return page.selectFromPage(htblColNameValue, strOperator);
+		}
+		return null;
+	}
+
+	private Iterator<Record> selectFromIndecies(
+			Hashtable<String, String> htblColNameValue, boolean equalsIgnoreCase) {
+		Iterator<String> colNames = htblColNameValue.keySet().iterator();
+		Object[] colNamesArr = new Object[htblColNameValue.size()];
+		int index = 0;
+		ArrayList<Record> resultList = new ArrayList<Record>();
+		while (colNames.hasNext()) {
+			String colName = colNames.next();
+			if (tableIndices.contains(colName)) {
+				checkIndexInizialized(colName);
+				Object result = tableIndices.get(colName).delete(
+						htblColNameValue.get(colName));
+				String[] data = result.toString().split(",");
+				int pageNumber = Integer.parseInt(data[0]);
+				int rowNumber = Integer.parseInt(data[1]);
+				Page page = null;
+				if (!tablePages.contains(pageNumber)) {
+					page = ObjectManager.readPage(tableName, pageNumber);
+					tablePages.put(pageNumber, page);
+				} else {
+					page = tablePages.get(pageNumber);
+				}
+				resultList.add(page.selectFromPage(rowNumber));
+
+				return resultList.iterator();
+			}
+			colNamesArr[index++] = colName;
+		}
+		Arrays.sort(colNamesArr);
+		String colNamesId = getMultiIndexId(colNamesArr);
+		if (tableMultiIndices.containsKey(colNamesId)) {
+			checkMultiIndexInizialized(colNamesId);
+			Object[] keyValues = new Object[colNamesArr.length];
+			for (int i = 0; i < keyValues.length; i++) {
+				keyValues[i] = htblColNameValue.get(colNamesArr[i]);
+			}
+			Object result = tableMultiIndices.get(colNamesId).delete(keyValues);
+			String[] data = result.toString().split(",");
+			int pageNumber = Integer.parseInt(data[0]);
+			int rowNumber = Integer.parseInt(data[1]);
+			Page page = null;
+			if (!tablePages.contains(pageNumber)) {
+				page = ObjectManager.readPage(tableName, pageNumber);
+				tablePages.put(pageNumber, page);
+			} else {
+				page = tablePages.get(pageNumber);
+			}
+			resultList.add(page.selectFromPage(rowNumber));
+			return resultList.iterator();
+		}
+		return null;
+	}
+
 	public void saveAllPages() {
 		Iterator<Page> it = tablePages.values().iterator();
 		while (it.hasNext()) {

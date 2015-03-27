@@ -1,7 +1,9 @@
 package com.nan.schema;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import com.nan.DBEngineException;
 import com.nan.utils.FileManager;
@@ -67,6 +69,26 @@ public class Page implements Serializable {
 			}
 		}
 
+	}
+
+	public Iterator<Record> selectFromPage(
+			Hashtable<String, String> htblColNameValue, String operator) {
+		boolean and = operator.equalsIgnoreCase("AND");
+		ArrayList<Record> resultSet = new ArrayList<Record>();
+		for (int i = 0; i < rowCount; i++) {
+			Record currRecord = pageRows.get(i);
+
+			if (and && currRecord.containsAllColumnValues(htblColNameValue)) {
+				resultSet.add(selectFromPage(i));
+			} else if (currRecord.containsAnyColumnValues(htblColNameValue)) {
+				resultSet.add(selectFromPage(i));
+			}
+		}
+		return resultSet.iterator();
+	}
+
+	public Record selectFromPage(int i) {
+		return pageRows.get(i);
 	}
 
 	public void save() {
