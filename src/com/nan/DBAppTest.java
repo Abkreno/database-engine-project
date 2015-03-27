@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.nan.commands.Command;
 import com.nan.commands.CreateTableCommand;
+import com.nan.schema.Record;
 import com.nan.schema.Table;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;
@@ -148,8 +149,11 @@ public class DBAppTest {
 		htb.put("Age", "11");
 		htb.put("Mail", "1@hotmail.com");
 		t.insertIntoTable(htb);
+		t.saveAllPages();
 		try {
-			Iterator it = t.selectFromTable(htb, "And");
+			Iterator<Record> it = t.selectFromTable(htb, "And");
+			assertEquals(it.next().toString(),
+					("{Age=11, Mail=1@hotmail.com, Name=hey}"));
 		} catch (DBEngineException e) {
 			e.printStackTrace();
 		}

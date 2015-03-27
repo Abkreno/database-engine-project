@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 import com.nan.schema.Column;
@@ -41,10 +42,6 @@ public class FileManager {
 
 	public static Table readTable(String tableName) {
 		return null;
-	}
-
-	public static void savePage(String tableName, int pageNumber,
-			Hashtable<Integer, Record> pageRows) {
 	}
 
 	public static void createNewTable(String strTableName) {
@@ -117,9 +114,9 @@ public class FileManager {
 		bw.close();
 	}
 
-	public static ArrayList<String> readTableIndicies(String strTableName)
+	public static HashSet<String> readTableIndicies(String strTableName)
 			throws IOException {
-		ArrayList<String> result = new ArrayList<String>();
+		HashSet<String> result = new HashSet<String>();
 		String indicesFolderPath = tablesDirectory + strTableName
 				+ "/indices/indices-info.txt";
 		tempFile = new File(indicesFolderPath);
@@ -134,7 +131,7 @@ public class FileManager {
 
 	public static void writeTableIndicies(String strTableName, String indexName)
 			throws IOException {
-		ArrayList<String> indecies = readTableIndicies(strTableName);
+		HashSet<String> indecies = readTableIndicies(strTableName);
 		indecies.add(indexName);
 		String indicesFolderPath = tablesDirectory + strTableName
 				+ "/indices/indices-info.txt";

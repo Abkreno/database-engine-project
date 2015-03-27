@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import com.nan.DBEngineException;
 import com.nan.utils.FileManager;
+import com.nan.utils.ObjectManager;
 import com.nan.utils.PropertiesReader;
 
 public class Page implements Serializable {
@@ -40,6 +41,7 @@ public class Page implements Serializable {
 			throw new DBEngineException("Table " + tableName + "'s Page ("
 					+ pageNumber + ")is Full!");
 		}
+		save();
 	}
 
 	/**
@@ -61,7 +63,6 @@ public class Page implements Serializable {
 		boolean and = operator.equalsIgnoreCase("AND");
 		for (int i = 0; i < rowCount; i++) {
 			Record currRecord = pageRows.get(i);
-
 			if (and && currRecord.containsAllColumnValues(htblColNameValue)) {
 				deleteFromPage(i);
 			} else if (currRecord.containsAnyColumnValues(htblColNameValue)) {
@@ -77,7 +78,6 @@ public class Page implements Serializable {
 		ArrayList<Record> resultSet = new ArrayList<Record>();
 		for (int i = 0; i < rowCount; i++) {
 			Record currRecord = pageRows.get(i);
-
 			if (and && currRecord.containsAllColumnValues(htblColNameValue)) {
 				resultSet.add(selectFromPage(i));
 			} else if (currRecord.containsAnyColumnValues(htblColNameValue)) {
@@ -92,7 +92,7 @@ public class Page implements Serializable {
 	}
 
 	public void save() {
-		FileManager.savePage(tableName, pageNumber, pageRows);
+		ObjectManager.writePage(tableName, pageNumber, this);
 	}
 
 	public int getRowCount() {

@@ -53,6 +53,11 @@ public class Table {
 		FileManager.createNewTable(strTableName);
 		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
+		try {
+			FileManager.writeSchema();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.tableSchema = Schema.getTableSchema(tableName);
 		createIndex(strKeyColName);
 		currentPage = new Page(tableName, tablePageCount);
@@ -73,7 +78,7 @@ public class Table {
 		this.tableMultiIndices = new Hashtable<String, DBKDTree>();
 		this.tableSchema = Schema.getTableSchema(tableName);
 		try {
-			ArrayList<String> indciesNames = FileManager
+			HashSet<String> indciesNames = FileManager
 					.readTableIndicies(tableName);
 			for (String index : indciesNames) {
 				if (index.contains("*")) {
@@ -275,7 +280,7 @@ public class Table {
 			return result;
 		}
 		// In case there are no indicies
-		for (int i = 0; i < tablePageCount; i++) {
+		for (int i = 0; i <= tablePageCount; i++) {
 			Page page;
 			if (!tablePages.contains(i)) {
 				page = ObjectManager.readPage(tableName, i);

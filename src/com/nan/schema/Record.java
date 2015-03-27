@@ -43,4 +43,8 @@ public class Record implements Serializable {
 		return false;
 	}
 
+	public String toString() {
+		return colNameValue.toString();
+	}
+
 }
