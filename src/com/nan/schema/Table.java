@@ -144,18 +144,27 @@ public class Table {
 		}
 		try {
 			currentPage.insertInPage(new Record(htblColNameValue));
+			currentPage.save();
 		} catch (DBEngineException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void drop() {
-		String userDirectory = System.getProperty("user.dir");
-		String tablesDirectory = userDirectory + "/data/tables/";
-		String folderPath = tablesDirectory + this.tableName;
+	public void deleteFromTable(Hashtable<String, String> htblColNameValue,
+			String strOperator) throws DBEngineException {
 
-		FileManager.deleteFolder(folderPath);
+		// In case there are no indicies
+		for (int i = 0; i < tablePageCount; i++) {
+			Page page;
+			if (!tablePages.contains(i)) {
+				page = ObjectManager.readPage(tableName, i);
+				tablePages.put(i, page);
+			} else {
+				page = tablePages.get(i);
+			}
+			page.deleteFromPage(htblColNameValue, strOperator);
+			page.save();
 
-		// TODO Delete from Schema when
+		}
 	}
 }

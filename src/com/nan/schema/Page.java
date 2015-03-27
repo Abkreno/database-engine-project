@@ -34,7 +34,6 @@ public class Page implements Serializable {
 	public void insertInPage(Record values) throws DBEngineException {
 		if (!isFull()) {
 			pageRows.put(rowCount++, values);
-			save();
 		} else {
 			throw new DBEngineException("Table " + tableName + "'s Page ("
 					+ pageNumber + ")is Full!");
@@ -48,7 +47,6 @@ public class Page implements Serializable {
 	 */
 	public void deleteFromPage(int rowNumber) {
 		pageRows.put(rowNumber, null);
-		save();
 	}
 
 	/**
@@ -56,21 +54,19 @@ public class Page implements Serializable {
 	 * 
 	 * @param id
 	 */
-	public void deleteFromPage(String id) {
-		deleteFromPage(searchForRowNumber(id));
-	}
-
-	/**
-	 * linear search for the row of a record , returns -1 if not found
-	 * 
-	 * @param id
-	 */
-	public int searchForRowNumber(String id) {
-		// TODO linear search for the row of a record with recordId = id
+	public void deleteFromPage(Hashtable<String, String> htblColNameValue,
+			String operator) {
+		boolean and = operator.equalsIgnoreCase("AND");
 		for (int i = 0; i < rowCount; i++) {
+			Record currRecord = pageRows.get(i);
 
+			if (and && currRecord.containsAllColumnValues(htblColNameValue)) {
+				deleteFromPage(i);
+			} else if (currRecord.containsAnyColumnValues(htblColNameValue)) {
+				deleteFromPage(i);
+			}
 		}
-		return -1;
+
 	}
 
 	public void save() {
