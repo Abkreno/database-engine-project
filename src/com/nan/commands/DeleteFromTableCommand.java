@@ -27,8 +27,8 @@ public class DeleteFromTableCommand implements Command {
 			System.err.println("Table " + tableName + " Doesn't Exists");
 			throw new DBAppException();
 		} else {
-			Set<String> colNames = colNameValue.keySet();
-			for (String colName : colNames) {
+			Set<String> colNamesSet = colNameValue.keySet();
+			for (String colName : colNamesSet) {
 				System.err.println("Column " + colName + " Doesn't Exists");
 				throw new DBAppException();
 			}

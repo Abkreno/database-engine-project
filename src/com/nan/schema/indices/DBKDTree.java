@@ -10,7 +10,6 @@ public class DBKDTree extends KDTree {
 
 	public void insert(Object[] key, Object value) {
 		Integer[] modifiedKeys = modifiyKeys(key);
-
 		super.insert(modifiedKeys, value);
 	}
 

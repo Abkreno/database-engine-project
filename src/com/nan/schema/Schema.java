@@ -45,8 +45,8 @@ public class Schema {
 	}
 
 	public static boolean checkMultiIndexExist(String tableName,
-			String colName1, String colName2) {
-		return schema.get(tableName).get(colName1).isIndexed()
-				&& schema.get(tableName).get(colName2).isIndexed();
+			Hashtable<String, String> colNames) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
