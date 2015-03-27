@@ -25,10 +25,11 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 // K-D Tree node class
-class KDNode {
+class KDNode implements Serializable {
 
 	// these are seen by kDTree
 	protected HPoint k;

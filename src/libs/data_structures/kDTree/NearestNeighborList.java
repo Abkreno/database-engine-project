@@ -25,9 +25,11 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
+
 // Bjoern Heckel's solution to the KD-Tree n-nearest-neighbor problem
 
-class NearestNeighborList {
+class NearestNeighborList implements Serializable {
 
 	public static int REMOVE_HIGHEST = 1;
 	public static int REMOVE_LOWEST = 2;

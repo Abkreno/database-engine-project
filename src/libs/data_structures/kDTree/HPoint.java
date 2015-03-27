@@ -25,9 +25,11 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
+
 // Hyper-Point class supporting kDTree class
 
-class HPoint {
+class HPoint implements Serializable {
 
 	protected Object[] coord;
 

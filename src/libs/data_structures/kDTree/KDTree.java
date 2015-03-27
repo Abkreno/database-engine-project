@@ -25,6 +25,7 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -47,7 +48,7 @@ import java.util.Vector;
  * @since JDK1.2
  */
 @SuppressWarnings("ALL")
-public class KDTree {
+public class KDTree implements Serializable {
 
 	// K = number of dimensions
 	private int m_K;

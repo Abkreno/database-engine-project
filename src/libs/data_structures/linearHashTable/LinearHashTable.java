@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 package libs.data_structures.linearHashTable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class LinearHashTable implements Map<Integer, String> {
+public class LinearHashTable implements Map<Integer, String>, Serializable {
 
 	private float loadFactor;
 	private int bucketSize;
@@ -171,7 +172,7 @@ public class LinearHashTable implements Map<Integer, String> {
 		return null;
 	}
 
-	class Bucket {
+	class Bucket implements Serializable {
 		LHTEntry[] entries;
 		int lastItem;
 		LinkedList<LHTEntry> overflow;
@@ -263,7 +264,7 @@ public class LinearHashTable implements Map<Integer, String> {
 		}
 	}
 
-	class LHTEntry implements Entry<Integer, String> {
+	class LHTEntry implements Entry<Integer, String>, Serializable {
 		private int key;
 		private String value;
 		private int hash;

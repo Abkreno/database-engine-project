@@ -1,8 +1,10 @@
 package com.nan.schema.indices;
 
+import java.io.Serializable;
+
 import libs.data_structures.kDTree.KDTree;
 
-public class DBKDTree extends KDTree {
+public class DBKDTree extends KDTree implements Serializable {
 
 	public DBKDTree(int k) {
 		super(k);

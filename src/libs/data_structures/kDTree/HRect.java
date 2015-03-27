@@ -25,9 +25,11 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
+
 // Hyper-Rectangle class supporting kDTree class
 
-class HRect {
+class HRect implements Serializable {
 
 	protected HPoint min;
 	protected HPoint max;

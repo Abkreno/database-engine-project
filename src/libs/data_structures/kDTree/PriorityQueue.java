@@ -25,10 +25,12 @@
  */
 package libs.data_structures.kDTree;
 
+import java.io.Serializable;
+
 /**
  * @author mohamed
  */
-class PriorityQueue implements java.io.Serializable {
+class PriorityQueue implements Serializable {
 
 	/**
 	 * This class implements a <code>PriorityQueue</code>. This class is

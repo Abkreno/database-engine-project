@@ -30,9 +30,11 @@ public class Table {
 	public Table(String strTableName,
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName) {
+
 		FileManager.createNewTable(strTableName);
 		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
+		createIndex(strKeyColName);
 	}
 
 	/**
@@ -42,6 +44,11 @@ public class Table {
 	 * @param strTableName
 	 */
 	public Table(String strTableName) {
+		
+	}
+
+	public void createIndex(String strKeyColName) {
+		// TODO Auto-generated method stub
 
 	}
 
