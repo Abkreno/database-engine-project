@@ -106,5 +106,8 @@ public class CommandsTest {
 
 		Switch.execute(createTableCommand);
 
+		assertFalse("The table's folder shouldn't exist", new File(
+				tablesDirectory + "/" + tableName).exists());
+
 	}
 }
