@@ -1,5 +1,7 @@
 package com.nan.schema;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.nan.schema.indices.DBKDTree;
@@ -9,8 +11,9 @@ import com.nan.utils.FileManager;
 public class Table {
 	private String tableName;
 	private Hashtable<Integer, Page> tablePages;
+	private int tablePageCount;
 	private Hashtable<String, DBLinearHashTable> tableIndices;
-	private Hashtable<String, DBKDTree> tableMultiIndices;
+	private Hashtable<String[], DBKDTree> tableMultiIndices;
 
 	/**
 	 * Creates a Table and inizializes it's files (This constructor will only be
@@ -31,6 +34,7 @@ public class Table {
 			Hashtable<String, String> htblColNameType,
 			Hashtable<String, String> htblColNameRefs, String strKeyColName) {
 
+		this.tablePageCount = 0;
 		FileManager.createNewTable(strTableName);
 		Schema.addNewTable(strTableName, htblColNameType, htblColNameRefs,
 				strKeyColName);
@@ -44,12 +48,24 @@ public class Table {
 	 * @param strTableName
 	 */
 	public Table(String strTableName) {
-		
+		this.tablePageCount = FileManager.getPageFilesCount();
+		try {
+			ArrayList<String> indciesNames = FileManager
+					.readTableIndicies(tableName);
+			for (String index : indciesNames) {
+				if (index.contains("*")) {
+					tableMultiIndices.put(index.split("*"), null);
+				} else {
+					tableIndices.put(index, null);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void createIndex(String strKeyColName) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

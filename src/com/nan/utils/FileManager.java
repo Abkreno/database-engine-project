@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import com.nan.schema.Column;
@@ -24,7 +25,7 @@ public class FileManager {
 		File schemaFile = new File(userDirectory + "/data/metadata.csv");
 		BufferedReader bf = new BufferedReader(new FileReader(schemaFile));
 		String line;
-		while ((line = bf.readLine()) != null) {
+		while ((line = bf.readLine()) != null && line.length() > 0) {
 			String[] data = line.split(", ");
 			String tableName = data[0];
 			if (!schema.containsKey(tableName))
@@ -51,6 +52,8 @@ public class FileManager {
 		createNewFolder(folderPath);
 		createNewFolder(folderPath + "/pages");
 		createNewFolder(folderPath + "/indices");
+		createNewFile(folderPath + "/indices/indices-info.txt");
+		createNewFile(folderPath + "/pages/0.ser");
 	}
 
 	public static void createNewFolder(String path) {
@@ -67,11 +70,6 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static File[] getFiles(String path) {
-		tempFile = new File(path);
-		return tempFile.listFiles();
 	}
 
 	/**
@@ -91,5 +89,29 @@ public class FileManager {
 			bw.write(curr);
 		}
 		bw.close();
+	}
+
+	public static ArrayList<String> readTableIndicies(String strTableName)
+			throws IOException {
+		ArrayList<String> result = new ArrayList<String>();
+		String indicesFolderPath = tablesDirectory + strTableName
+				+ "/indices/indices-info.txt";
+		tempFile = new File(indicesFolderPath);
+		BufferedReader bf = new BufferedReader(new FileReader(tempFile));
+		String line;
+		while ((line = bf.readLine()) != null) {
+			result.add(line);
+		}
+		return result;
+	}
+
+	public static File[] getFiles(String path) {
+		tempFile = new File(path);
+		return tempFile.listFiles();
+	}
+
+	public static int getPageFilesCount() {
+		tempFile = new File(tablesDirectory + "/pages");
+		return tempFile.listFiles().length;
 	}
 }
