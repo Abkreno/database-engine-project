@@ -2,10 +2,12 @@ package com.nan.commands;
 
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Set;
 
 import com.nan.DBApp;
 import com.nan.DBAppException;
 import com.nan.DBEngineException;
+import com.nan.schema.Schema;
 
 public class SelectFromTableCommand implements Command {
 	private DBApp dataBase;
@@ -25,7 +27,17 @@ public class SelectFromTableCommand implements Command {
 
 	}
 
-	public Iterator executeAndReturn() throws DBEngineException {
+	public Iterator executeAndReturn() throws DBEngineException, DBAppException {
+		if (!Schema.checkTableExist(tableName)) {
+			System.err.println("Table " + tableName + " Doesn't Exists");
+			throw new DBAppException();
+		} else {
+			Set<String> colNames = colNameValue.keySet();
+			for (String colName : colNames) {
+				System.err.println("Column " + colName + " Doesn't Exists");
+				throw new DBAppException();
+			}
+		}
 		// TODO Print Selected Rows
 		return dataBase.selectFromTable(tableName, colNameValue, operator);
 	}

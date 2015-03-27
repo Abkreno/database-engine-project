@@ -12,7 +12,7 @@ public class Switch {
 	}
 
 	public Iterator executeAndReturn(SelectFromTableCommand cmd)
-			throws DBEngineException {
+			throws DBAppException, DBEngineException {
 		return cmd.executeAndReturn();
 	}
 }
