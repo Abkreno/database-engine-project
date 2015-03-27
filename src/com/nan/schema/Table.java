@@ -8,8 +8,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import libs.data_structures.kDTree.KDTree;
-
 import com.nan.DBAppException;
 import com.nan.schema.indices.DBKDTree;
 import com.nan.schema.indices.DBLinearHashTable;

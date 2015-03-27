@@ -5,13 +5,20 @@ import java.io.Serializable;
 import libs.data_structures.kDTree.KDTree;
 
 public class DBKDTree extends KDTree implements Serializable {
+	private boolean isInit;
 
 	public DBKDTree(int k) {
 		super(k);
+		isInit = true;
 	}
 
 	public DBKDTree(boolean b) {
 		super(b);
+		isInit = false;
+	}
+
+	public boolean isIniziliazed() {
+		return isInit;
 	}
 
 	public void insert(Object[] key, Object value) {
