@@ -1,12 +1,13 @@
 package com.nan.schema;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 import com.nan.DBEngineException;
 import com.nan.utils.FileManager;
 import com.nan.utils.PropertiesReader;
 
-public class Page {
+public class Page implements Serializable {
 	private String tableName;
 	private int pageNumber, rowCount;
 	private Hashtable<Integer, Record> pageRows;
@@ -67,7 +68,7 @@ public class Page {
 	public int searchForRowNumber(String id) {
 		// TODO linear search for the row of a record with recordId = id
 		for (int i = 0; i < rowCount; i++) {
-			
+
 		}
 		return -1;
 	}
