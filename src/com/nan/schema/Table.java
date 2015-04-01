@@ -257,7 +257,7 @@ public class Table {
 			return;
 		}
 		// In case there are no indicies
-		for (int i = 0; i < tablePageCount; i++) {
+		for (int i = 0; i <= tablePageCount; i++) {
 			Page page;
 			if (!tablePages.contains(i)) {
 				page = ObjectManager.readPage(tableName, i);
@@ -267,7 +267,6 @@ public class Table {
 			}
 			page.deleteFromPage(htblColNameValue, strOperator);
 			page.save();
-
 		}
 	}
 
@@ -277,6 +276,7 @@ public class Table {
 		Iterator<Record> result = selectFromIndecies(htblColNameValue,
 				strOperator.equalsIgnoreCase("AND"));
 		if (result != null) {
+			System.out.println("here");
 			return result;
 		}
 		// In case there are no indicies
@@ -303,7 +303,7 @@ public class Table {
 			String colName = colNames.next();
 			if (tableIndices.contains(colName)) {
 				checkIndexInizialized(colName);
-				Object result = tableIndices.get(colName).delete(
+				Object result = tableIndices.get(colName).get(
 						htblColNameValue.get(colName));
 				String[] data = result.toString().split(",");
 				int pageNumber = Integer.parseInt(data[0]);

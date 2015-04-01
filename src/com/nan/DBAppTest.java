@@ -77,7 +77,6 @@ public class DBAppTest {
 		assertEquals(abdo, "Abdo, 28-10500");
 	}
 
-	@Test
 	public void testCreate() throws DBAppException {
 		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
 		htblColNameType.put("Name", "String");
@@ -92,7 +91,6 @@ public class DBAppTest {
 		Table t2 = new Table("Person");
 	}
 
-	@Test
 	public void testInsert() throws DBAppException {
 		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
 		htblColNameType.put("Name", "String");
@@ -110,7 +108,6 @@ public class DBAppTest {
 		t.insertIntoTable(htb);
 	}
 
-	@Test
 	public void testDelete() throws DBAppException {
 		Hashtable<String, String> htblColNameType = new Hashtable<String, String>();
 		htblColNameType.put("Name", "String");

@@ -5,6 +5,10 @@ import java.io.Serializable;
 import libs.data_structures.kDTree.KDTree;
 
 public class DBKDTree extends KDTree implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3723777119726532012L;
 	private boolean isInit;
 
 	public DBKDTree(int k) {

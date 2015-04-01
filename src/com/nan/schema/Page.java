@@ -11,6 +11,10 @@ import com.nan.utils.ObjectManager;
 import com.nan.utils.PropertiesReader;
 
 public class Page implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -758149465491459704L;
 	private String tableName;
 	private int pageNumber, rowCount;
 	private Hashtable<Integer, Record> pageRows;
@@ -50,7 +54,7 @@ public class Page implements Serializable {
 	 * @param rowNumber
 	 */
 	public void deleteFromPage(int rowNumber) {
-		pageRows.put(rowNumber, null);
+		pageRows.get(rowNumber).setDeleted(true);
 	}
 
 	/**

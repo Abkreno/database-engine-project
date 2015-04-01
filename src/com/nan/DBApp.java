@@ -125,6 +125,7 @@ public class DBApp {
 			cachedTables.put(strTableName, new Table(strTableName));
 		}
 		Table table = cachedTables.get(strTableName);
+		table.deleteFromTable(htblColNameValue, strOperator);
 		saveAll();
 	}
 

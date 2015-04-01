@@ -21,6 +21,10 @@ import java.util.Set;
 
 public class LinearHashTable implements Map<Integer, String>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8900680089800944735L;
 	private float loadFactor;
 	private int bucketSize;
 	private int size;
@@ -176,6 +180,10 @@ public class LinearHashTable implements Map<Integer, String>, Serializable {
 	}
 
 	class Bucket implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7277746177126898774L;
 		LHTEntry[] entries;
 		int lastItem;
 		LinkedList<LHTEntry> overflow;
@@ -268,6 +276,10 @@ public class LinearHashTable implements Map<Integer, String>, Serializable {
 	}
 
 	class LHTEntry implements Entry<Integer, String>, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 6709311670965223023L;
 		private int key;
 		private String value;
 		private int hash;

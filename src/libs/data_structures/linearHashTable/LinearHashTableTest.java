@@ -23,7 +23,6 @@ public class LinearHashTableTest {
 		int key = 5;
 		String value = "five";
 		table.put(key, value);
-		assertTrue(key == key);
 		assertEquals("get as put", value, table.get(key));
 	}
 

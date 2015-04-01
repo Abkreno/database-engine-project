@@ -7,6 +7,10 @@ import libs.data_structures.linearHashTable.LinearHashTable;
 import com.nan.utils.PropertiesReader;
 
 public class DBLinearHashTable extends LinearHashTable implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8864578680239313619L;
 	private boolean isInit;
 
 	public DBLinearHashTable(boolean unInizialized) {

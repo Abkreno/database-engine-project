@@ -5,9 +5,13 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-@SuppressWarnings("serial")
 public class Record implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5540495794645302911L;
 	private Hashtable<String, String> colNameValue;
+	private boolean deleted;
 
 	public Record(Hashtable<String, String> htblColNameValue) {
 		this.colNameValue = htblColNameValue;
@@ -45,6 +49,14 @@ public class Record implements Serializable {
 
 	public String toString() {
 		return colNameValue.toString();
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public boolean isDeleted() {
+		return this.deleted;
 	}
 
 }
