@@ -1,3 +1,0 @@
-Person, Name, String, false, false, null
-Person, Age, Integer, true, false, null
-Person, Mail, Integer, false, false, null
